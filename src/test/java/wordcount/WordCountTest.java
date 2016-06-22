@@ -1,4 +1,7 @@
+package wordcount;
 import org.junit.Test;
+
+import wordcount.WordCount;
 
 import java.lang.Integer;
 import java.lang.String;
