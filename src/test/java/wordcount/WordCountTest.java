@@ -18,10 +18,10 @@ public class WordCountTest {
 
     @Test
     public void test_parse_ValidString_ReturnsExpectedResult() {
-    	String input = "Foo Bar";
+    	String input = "foo bar";
     	List<String> expected = new ArrayList<String>();
-    	expected.add( "Foo" );
-    	expected.add( "Bar" );
+    	expected.add( "foo" );
+    	expected.add( "bar" );
     	
     	List<String> actual = wordCount.parse( input );
     	assertEquals(expected.size( ), actual.size( ) );
@@ -33,11 +33,11 @@ public class WordCountTest {
     
     @Test
     public void test_parse_ValidString_ContainsDigits_ReturnsExpectedResult() {
-    	String input = "Foo11 Bar99 100";
+    	String input = "foo11 bar99 100";
     	List<String> expected = new ArrayList<String>();
-    	expected.add( "Foo11" );
-    	expected.add( "Bar99" );
-    	expected.add(  "100" );
+    	expected.add( "foo11" );
+    	expected.add( "bar99" );
+    	expected.add( "100" );
     	
     	List<String> actual = wordCount.parse( input );
     	assertEquals(expected.size( ), actual.size( ) );
@@ -49,11 +49,11 @@ public class WordCountTest {
     
     @Test
     public void test_parse_ValidString_ContainsPunctuation_ReturnsExpectedResult() {
-    	String input = "Foo11&& B::ar99 1..00 &#*$(";
+    	String input = "foo11&& b::ar99 1..00 &#*$(";
     	List<String> expected = new ArrayList<String>();
-    	expected.add( "Foo11" );
-    	expected.add( "Bar99" );
-    	expected.add(  "100" );
+    	expected.add( "foo11" );
+    	expected.add( "bar99" );
+    	expected.add( "100" );
     	
     	List<String> actual = wordCount.parse( input );
     	assertEquals(expected.size( ), actual.size( ) );
