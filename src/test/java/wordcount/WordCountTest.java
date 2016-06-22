@@ -5,7 +5,9 @@ import wordcount.WordCount;
 
 import java.lang.Integer;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -14,6 +16,76 @@ public class WordCountTest {
 
     private final WordCount wordCount = new WordCount();
 
+    @Test
+    public void test_parse_ValidString_ReturnsExpectedResult() {
+    	String input = "Foo Bar";
+    	List<String> expected = new ArrayList<String>();
+    	expected.add( "Foo" );
+    	expected.add( "Bar" );
+    	
+    	List<String> actual = wordCount.parse( input );
+    	assertEquals(expected.size( ), actual.size( ) );
+    	
+    	for ( int i = 0 ; i < expected.size( ) ; i++ ) {
+    		assertTrue( expected.get( i ).equals( actual.get( i ) ) );
+    	}
+    }
+    
+    @Test
+    public void test_parse_ValidString_ContainsDigits_ReturnsExpectedResult() {
+    	String input = "Foo11 Bar99 100";
+    	List<String> expected = new ArrayList<String>();
+    	expected.add( "Foo11" );
+    	expected.add( "Bar99" );
+    	expected.add(  "100" );
+    	
+    	List<String> actual = wordCount.parse( input );
+    	assertEquals(expected.size( ), actual.size( ) );
+    	
+    	for ( int i = 0 ; i < expected.size( ) ; i++ ) {
+    		assertTrue( expected.get( i ).equals( actual.get( i ) ) );
+    	}
+    }
+    
+    @Test
+    public void test_parse_ValidString_ContainsPunctuation_ReturnsExpectedResult() {
+    	String input = "Foo11&& B::ar99 1..00 &#*$(";
+    	List<String> expected = new ArrayList<String>();
+    	expected.add( "Foo11" );
+    	expected.add( "Bar99" );
+    	expected.add(  "100" );
+    	
+    	List<String> actual = wordCount.parse( input );
+    	assertEquals(expected.size( ), actual.size( ) );
+    	
+    	for ( int i = 0 ; i < expected.size( ) ; i++ ) {
+    		assertTrue( expected.get( i ).equals( actual.get( i ) ) );
+    	}
+    }
+    
+    @Test
+    public void handleNullString() {
+    	try {
+    		wordCount.phrase( null );
+    		fail("Supposed to catch NullPointerException");
+    	} catch ( NullPointerException npe ) {
+    		
+    	} catch ( Exception e ) {
+    		fail("Expected to catch NullPointerException");
+    	}
+    }
+    
+    @Test
+    public void handleEmptyString() {
+    	Map<String, Integer> actualWordCount = new HashMap<String, Integer>();
+    	final Map<String, Integer> expectedWordCount = new HashMap<String, Integer>();
+    	
+    	actualWordCount = wordCount.phrase("");
+    	assertEquals(
+                expectedWordCount, actualWordCount
+        );
+    }
+    
     @Test
     public void countOneWord() {
         Map<String, Integer> actualWordCount = new HashMap<String, Integer>();
